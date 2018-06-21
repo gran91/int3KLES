@@ -1,0 +1,8 @@
+{
+  "callbackUrl": "http://localhost:4200/auth/callback",
+  "userInfoUrl": "https://www.googleapis.com/plus/v1/people/me",
+  "userInfoNameField": "displayName",
+  "implicitGrantUrl": "https://accounts.google.com/o/oauth2/auth?redirect_uri=__callbackUrl__&response_type=token&client_id=__clientId__&scope=__scopes__",
+  "clientId": "781994805685-f8df4jcefdb56rfd8dv4rkktdu62gf4r.apps.googleusercontent.com",
+  "scopes": "https://www.googleapis.com/auth/userinfo.profile"
+}

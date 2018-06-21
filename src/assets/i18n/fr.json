@@ -1,0 +1,53 @@
+{
+    "message":{
+        "delete":{
+            "success":"Supprimer avec succès"
+        }
+    },
+    "calendar": {
+        "today": "Aujourd'hui",
+        "day": "Jour",
+        "week": "Semaine",
+        "month": "Mois"
+    },
+    "timesheet": {
+        "title": "CRA"
+    },
+    "Previous": "Précédent",
+    "Next": "Suivant",
+    "button": {
+        "add": "Ajouter",
+        "edit": "Modifier",
+        "delete": "Supprimer"
+    },
+    "countries": {
+        "code": "Code",
+        "name": "Nom",
+        "symbol": "Symbole",
+        "maincountry": "Pays"
+    },
+    "currencies": {
+        "code": "Code",
+        "name": "Nom"
+    },
+    "nav": {
+        "title": {
+            "dashboard": "Tableau de bord",
+            "myadmin": "Mon administatif",
+            "projectmanager": "Gestion de Projet",
+            "administration": "Administration",
+            "configuration": "Configuration"
+        },
+        "dropdown": {
+            "parameter": "Paramètres"
+        },
+        "link": {
+            "myprofile": "Mon Profil",
+            "timesheet": "CRA",
+            "expense": "Note de frais",
+            "vacation": "Congés",
+            "country": "Pays",
+            "currency": "Devise"
+        }
+    }
+}
