@@ -12,11 +12,11 @@
     </div>
     <div class="modal-footer">
         <div class="text-right">
-            <button type="submit" class="btn btn-success">
-                Yes
+            <button type="submit" class="btn btn-success" (click)="onConfirm()">
+                {{'main.yes'|translate}}
             </button>
-            <button type="button" class="btn btn-default" (click)="onCancel()">
-                No
+            <button type="button" class="btn btn-default" (click)="onCancel()" translate>
+                {{'main.no'|translate}}
             </button>
         </div>
     </div>

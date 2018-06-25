@@ -4,13 +4,15 @@ import { ToasterModule, ToasterService, ToasterConfig } from 'angular2-toaster/a
 import { TranslateService } from '@ngx-translate/core';
 import { PaginationInstance } from 'ngx-pagination';
 import { Observable } from 'rxjs/Observable';
+import { BsModalService } from 'ngx-bootstrap/modal';
+import { ConfirmDialogComponent } from '../confirmation/confirm-dialog.component';
 import { CRUDService } from '../service/CRUD.service';
 import { AngularFirestoreDocument } from 'angularfire2/firestore';
 
 @Component({
-    selector: 'app-countries-list',
-    styleUrls: ['../../../../scss/vendors/toastr/toastr.scss'],
-    templateUrl: './countries-list.component.html',
+    selector: 'app-simpletable-list',
+    template: '<div>SimpleTableList</div>',
+    styleUrls: ['../../../scss/vendors/toastr/toastr.scss'],
     changeDetection: ChangeDetectionStrategy.Default
 })
 export class SimpleTableListComponent implements OnInit {
@@ -46,7 +48,7 @@ export class SimpleTableListComponent implements OnInit {
     public autoHide = false;
     public config: PaginationInstance = {
         id: 'advanced',
-        itemsPerPage: 10,
+        itemsPerPage: 5,
         currentPage: 1
     };
     public paginationLabel: any = {
@@ -57,18 +59,16 @@ export class SimpleTableListComponent implements OnInit {
         screenReaderCurrentLabel: `label`
     };
 
-    private toasterService: ToasterService;
-
     public toasterconfig: ToasterConfig = new ToasterConfig({
         tapToDismiss: true,
         timeout: 5000
     });
 
-    constructor(private mainService: CRUDService,
-        public toast: ToasterService,
-        private translate: TranslateService
+    constructor(public mainService: CRUDService,
+        public toasterService: ToasterService,
+        public translate: TranslateService,
+        public _bsModalService: BsModalService
     ) {
-        this.toasterService = toast;
         this.setClickedRow = function (index) {
             this.selectedRow = index;
             this.onSelectedRow.emit(this.selectedRow);
@@ -87,6 +87,7 @@ export class SimpleTableListComponent implements OnInit {
         this.mainService.list().subscribe(
             data => {
                 this.items = data;
+                this.isLoading = false;
             },
             error => console.log(error),
             () => this.isLoading = false
@@ -95,19 +96,31 @@ export class SimpleTableListComponent implements OnInit {
 
     add(item) {
         this.mainService.add(item);
-        this.toasterService.pop('success', 'Add', 'item added successfully.');
+        this.toasterService.pop('success', this.translate.instant('main.add'), this.translate.instant('message.add.success'));
     }
 
     edit(item) {
         this.mainService.update(item);
-        this.toasterService.pop('success', 'Edit', 'item edited successfully.');
+        this.toasterService.pop('success', this.translate.instant('main.update'), this.translate.instant('message.update.success'));
     }
 
     delete(item) {
-        if (window.confirm('Are you sure you want to permanently delete this item?')) {
-            this.mainService.delete(item);
-            this.toasterService.pop('success', 'Delete', 'item deleted successfully.');
-        }
+        const modal = this._bsModalService.show(ConfirmDialogComponent);
+        (<ConfirmDialogComponent>modal.content).showConfirmationModal(
+            this.translate.instant('main.delete'),
+            this.translate.instant('message.delete.confirm')
+        );
+
+        (<ConfirmDialogComponent>modal.content).onClose.subscribe(result => {
+            if (result === true) {
+                this.mainService.delete(item);
+                this.toasterService.pop('success', this.translate.instant('main.delete'), this.translate.instant('message.delete.success'));
+            } else if (result === false) {
+                this.toasterService.pop('warning', this.translate.instant('main.delete'), this.translate.instant('message.delete.cancel'));
+            } else {
+                // When closing the modal without no or yes
+            }
+        });
     }
 
     enableEditing(item) {
@@ -156,5 +169,9 @@ export class SimpleTableListComponent implements OnInit {
     onPageChange(number: number) {
         console.log('change to page', number);
         this.config.currentPage = number;
+    }
+
+    onChangePageSize(newValue) {
+        this.config.itemsPerPage = newValue;
     }
 }

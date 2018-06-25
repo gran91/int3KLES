@@ -1,7 +1,19 @@
 {
-    "message":{
-        "delete":{
-            "success":"Supprimer avec succès"
+    "main": {
+        "add": "Ajouter",
+        "delete": "Supprimer",
+        "update": "Mise à jour",
+        "display": "Afficher",
+        "cancel": "Annuler",
+        "yes": "Oui",
+        "no": "Non",
+        "ok": "OK"
+    },
+    "message": {
+        "delete": {
+            "confirm": "Souhaitez vous supprimer cet enregistrement?",
+            "success": "Supprimer avec succès",
+            "cancel": "Suppression annuler"
         }
     },
     "calendar": {

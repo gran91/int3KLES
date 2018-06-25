@@ -19,6 +19,11 @@ import { CountriesComponent } from './countries/countries.component';
 import { CountriesListComponent } from './countries/countries-list.component';
 import { CountriesDetailComponent } from './countries/countries-detail.component';
 
+// Currencies
+import { CurrenciesComponent } from './currencies/currencies.component';
+import { CurrenciesListComponent } from './currencies/currencies-list.component';
+import { CurrenciesDetailComponent } from './currencies/currencies-detail.component';
+
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 
 // Modal Component
@@ -55,7 +60,10 @@ import { ParametersRoutingModule } from './parameters-routing.module';
   declarations: [
     CountriesComponent,
     CountriesListComponent,
-    CountriesDetailComponent
+    CountriesDetailComponent,
+    CurrenciesComponent,
+    CurrenciesListComponent,
+    CurrenciesDetailComponent,
   ]
 })
 export class ParametersModule { }

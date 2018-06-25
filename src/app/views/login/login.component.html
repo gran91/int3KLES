@@ -4,36 +4,17 @@
       <div class="col-md-8">
         <div class="card-group mb-0">
           <div class="card p-4">
-            <div class="card-body">
+            <div class="card-body text-center">
               <h1>Int3KLES</h1>
               <p class="text-muted">Intranet 3KLES</p>
-              <form [formGroup]="loginForm" (ngSubmit)="login()">
-                <div class="form-group" (ngClass)="setClassEmail()">
-                  <span class="input-group-addon">
-                    <i class="icon-user"></i>
-                  </span>
-                  <input class="form-control" type="email" name="email" formControlName="email" placeholder="Email" autofocus>
-                </div>
-                <div class="form-group" (ngClass)="setClassPassword()">
-                  <span class="input-group-addon">
-                    <i class="icon-lock"></i>
-                  </span>
-                  <input class="form-control" type="password" name="password" formControlName="password" placeholder="Password">
-                </div>
-                <div class="row">
-                  <div class="col-6">
-                    <button class="btn btn-primary px-4" type="submit" [disabled]="!loginForm.valid">Login</button>
-                  </div>
-                </div>
-              </form>
-            </div>
-          </div>
-          <div class="card text-white bg-primary py-5 d-md-down-none" style="width:44%">
-            <div class="card-body text-center">
-              <div>
-                <div class="text-center">
-                  <img src="assets/img/logo.png">
-                </div>
+              <div class="text-center">
+                <img src="assets/img/logo.png">
+                
+              </div>
+              <div class="text-center">
+                <form [formGroup]="loginForm" (ngSubmit)="login()">
+                  <button class="btn btn-primary px-4" type="submit">Login</button>
+                </form>
               </div>
             </div>
           </div>

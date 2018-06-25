@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, NgModule } from '@angular/core';
-import { CountryService } from '../../../services/data/country.service';
+import { CRUDService } from '../../utils/service/CRUD.service';
 // FORMS
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 
@@ -8,21 +8,16 @@ import { ToasterModule, ToasterService, ToasterConfig } from 'angular2-toaster/a
 
 // TRANSLATE
 import { TranslateService } from '@ngx-translate/core';
-
-
-import { Subject } from 'rxjs/Subject';
 import 'rxjs/add/operator/map';
 
 @Component({
-    selector: 'app-countries-detail',
-    templateUrl: './countries-detail.component.html',
-    styleUrls: ['./countries-detail.component.css'],
+    selector: 'app-detail',
+    template: '<div>SimpleTableList</div>'
 })
-export class CountriesDetailComponent implements OnInit {
+export class SimpleDetailComponent implements OnInit {
 
     @Input() item = {};
 
-    isLoading = true;
     isEditing = false;
 
     public toasterconfig: ToasterConfig =
@@ -31,14 +26,11 @@ export class CountriesDetailComponent implements OnInit {
         timeout: 5000
     });
 
-    itemForm = new FormGroup({
-        name: new FormControl('', Validators.required),
-        code: new FormControl('', Validators.required)
-    });
+    itemForm: FormGroup;
 
-    constructor(private itemService: CountryService,
+    constructor(public itemService: CRUDService,
         public toaster: ToasterService,
-        private translate: TranslateService) {
+        public translate: TranslateService) {
     }
 
     ngOnInit() {
@@ -54,13 +46,12 @@ export class CountriesDetailComponent implements OnInit {
         this.item = {}
     }
 
-    edit(item) {
-        this.itemService.update(item);
+    update() {
+        this.itemService.update(this.itemForm.value);
         this.toaster.pop('success', 'Edit', 'item edited successfully.');
     }
 
     add() {
-        console.log(this.itemForm);
         this.itemService.add(this.itemForm.value);
         this.toaster.pop('success', 'Add', 'item added successfully.');
     }
@@ -68,5 +59,4 @@ export class CountriesDetailComponent implements OnInit {
     reset() {
         this.item = {};
     }
-
 }

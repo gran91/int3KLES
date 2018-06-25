@@ -7,7 +7,7 @@ export class CurrencyService extends CRUDService {
 
   constructor(public afs: AngularFirestore) {
     super(afs);
-    this.collectionName = 'country';
+    this.collectionName = 'currency';
     this.initCollection();
   }
 }

@@ -138,18 +138,29 @@ export class CountriesListComponent implements OnInit {
   }
 
   edit(item) {
-    // this.countryService.update(item);
-    this.translate.get('message.delete.success').subscribe((res: string) => {
-      this.toasterService.pop('success', 'Edit', res);
-    });
+     this.countryService.update(item);
+    this.toasterService.pop('success', 'Edit', this.translate.instant('message.delete.success'));
   }
 
   delete(item) {
-    if (window.confirm('Are you sure you want to permanently delete this item?')) {
-      this.CountryDoc = this.afs.doc(`country/${item.id}`);
-      this.CountryDoc.delete();
-      this.toasterService.pop('success', 'Delete', 'item deleted successfully.');
-    }
+    console.log(this.translate.instant('message.delete.success'));
+    const modal = this._bsModalService.show(ConfirmDialogComponent);
+    (<ConfirmDialogComponent>modal.content).showConfirmationModal(
+      'Delete',
+      'Would you like to delete this item:' + item.id + ' ?'
+    );
+
+    (<ConfirmDialogComponent>modal.content).onClose.subscribe(result => {
+      if (result === true) {
+        this.CountryDoc = this.afs.doc(`country/${item.id}`);
+        this.CountryDoc.delete();
+        this.toasterService.pop('success', 'Delete', 'item deleted successfully.');
+      } else if (result === false) {
+        this.toasterService.pop('warning', 'Delete', 'Cancel delete');
+      } else {
+        // When closing the modal without no or yes
+      }
+    });
   }
 
   // SORTING
@@ -179,22 +190,4 @@ export class CountriesListComponent implements OnInit {
     this.config.currentPage = number;
   }
 
-  // CONFIRM
-  public showConfirmationModal(): void {
-    const modal = this._bsModalService.show(ConfirmDialogComponent);
-    (<ConfirmDialogComponent>modal.content).showConfirmationModal(
-      'Title of modal',
-      'Body text'
-    );
-
-    (<ConfirmDialogComponent>modal.content).onClose.subscribe(result => {
-      if (result === true) {
-        // when pressed Yes
-      } else if (result === false) {
-        // when pressed No
-      } else {
-        // When closing the modal without no or yes
-      }
-    });
-  }
 }

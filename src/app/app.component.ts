@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
+import { Browser } from 'selenium-webdriver';
 
 @Component({
   // tslint:disable-next-line
@@ -13,7 +14,8 @@ export class AppComponent implements OnInit {
     translate.setDefaultLang('fr');
 
     // the lang to use, if the lang isn't available, it will use the current loader to get them
-    translate.use('fr');
+    console.log('Browser language:', navigator.language);
+    translate.use(navigator.language);
   }
 
   ngOnInit() {

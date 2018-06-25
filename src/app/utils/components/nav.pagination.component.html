@@ -1,0 +1,20 @@
+<nav>
+    <div class="form-group row">
+      <div class="col-xs-11">
+        <div class="has-text-centered">
+          <pagination-controls [id]="config.id" [maxSize]="maxSize" [directionLinks]="directionLinks" [autoHide]="autoHide" [previousLabel]="paginationLabel.previousLabel"
+            [nextLabel]="paginationLabel.nextLabel" [screenReaderPaginationLabel]="paginationLabel.screenReaderPaginationLabel"
+            [screenReaderPageLabel]="paginationLabel.screenReaderPageLabel" [screenReaderCurrentLabel]="paginationLabel.screenReaderCurrentLabel"
+            (pageChange)="onPageChange($event)"></pagination-controls>
+        </div>
+      </div>
+      <div class="col-xs-1">
+        <select [ngModel]="config.itemsPerPage" name="pageSize" id="pageSize" class="form-control" (ngModelChange)="onChangePageSize($event)" value="{{config.itemsPerPage}}">
+          <option value="5">5</option>
+          <option value="10">10</option>
+          <option value="20">20</option>
+          <option value="30">30</option>
+        </select>
+      </div>
+    </div>
+  </nav>
