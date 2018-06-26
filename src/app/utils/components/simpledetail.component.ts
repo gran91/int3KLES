@@ -17,8 +17,7 @@ import 'rxjs/add/operator/map';
 export class SimpleDetailComponent implements OnInit {
 
     @Input() item = {};
-
-    isEditing = false;
+    @Input() isEditing = false;
 
     public toasterconfig: ToasterConfig =
     new ToasterConfig({
@@ -37,8 +36,8 @@ export class SimpleDetailComponent implements OnInit {
     }
 
     enableEditing(item) {
-        this.isEditing = true;
-        this.item = item;
+        //  this.isEditing = true;
+        // this.item = item;
     }
 
     cancelEditing() {
@@ -57,6 +56,7 @@ export class SimpleDetailComponent implements OnInit {
     }
 
     reset() {
+        this.isEditing = false;
         this.item = {};
     }
 }

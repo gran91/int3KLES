@@ -18,6 +18,8 @@ export class CurrenciesComponent implements AfterViewInit {
   private itemDetail: CurrenciesDetailComponent;
 
   isCreationMode = true;
+  isEditing = false;
+  isDelete = false;
   currentItem = {};
 
   constructor() {
@@ -28,11 +30,21 @@ export class CurrenciesComponent implements AfterViewInit {
   }
 
   changeItem(event) {
-    console.log(event);
+    console.log('Change Item:', event);
     if (event.code !== '') {
       this.isCreationMode = false;
     }
     this.currentItem = event;
+  }
+
+  enableEdit(event) {
+    console.log('Enable Edit:', event);
+    this.isEditing = event;
+  }
+
+  enableDelete(event) {
+    console.log('Enable Delete:', event);
+    this.isDelete = event;
   }
 
   reset(event) {

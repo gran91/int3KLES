@@ -19,6 +19,8 @@ export class SimpleTableListComponent implements OnInit {
     @Input() selectedRow = {};
     setClickedRow: Function;
     @Output() onSelectedRow = new EventEmitter();
+    @Output() onEdit = new EventEmitter();
+    @Output() onDelete = new EventEmitter();
 
     // FIREBASE
     itemDoc: AngularFirestoreDocument<any>;
@@ -100,8 +102,9 @@ export class SimpleTableListComponent implements OnInit {
     }
 
     edit(item) {
-        this.mainService.update(item);
-        this.toasterService.pop('success', this.translate.instant('main.update'), this.translate.instant('message.update.success'));
+        this.onEdit.emit(true);
+        // this.mainService.update(item);
+        // this.toasterService.pop('success', this.translate.instant('main.update'), this.translate.instant('message.update.success'));
     }
 
     delete(item) {
@@ -115,9 +118,13 @@ export class SimpleTableListComponent implements OnInit {
             if (result === true) {
                 this.mainService.delete(item);
                 this.toasterService.pop('success', this.translate.instant('main.delete'), this.translate.instant('message.delete.success'));
+                this.onDelete.emit(true);
             } else if (result === false) {
                 this.toasterService.pop('warning', this.translate.instant('main.delete'), this.translate.instant('message.delete.cancel'));
+                this.onDelete.emit(false);
+                // this.onDelete.emit('cancel');
             } else {
+                this.onDelete.emit(false);
                 // When closing the modal without no or yes
             }
         });
