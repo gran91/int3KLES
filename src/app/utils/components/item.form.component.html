@@ -1,0 +1,9 @@
+<form [formGroup]="itemForm" class="form-horizontal">
+    <div *ngFor="let control of listControl" class="form-group row ">
+        <label class="col-md-3 col-form-label " for="{{control.key}}" translate>{{modelname}}.{{control.key}}</label>
+        <div class="col-md-9 ">
+            <input type="text " formControlName="{{control.key}}" id="{{control.key}}" name="{{control.key}}" class="form-control">
+            <!--{{control.html}}-->
+        </div>
+    </div>
+</form>

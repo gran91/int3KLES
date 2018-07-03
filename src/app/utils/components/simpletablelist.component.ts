@@ -8,6 +8,9 @@ import { BsModalService } from 'ngx-bootstrap/modal';
 import { ConfirmDialogComponent } from '../confirmation/confirm-dialog.component';
 import { CRUDService } from '../service/CRUD.service';
 import { AngularFirestoreDocument } from 'angularfire2/firestore';
+// MODAL
+import { ViewChild } from '@angular/core';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 
 @Component({
     selector: 'app-simpletable-list',
@@ -26,6 +29,9 @@ export class SimpleTableListComponent implements OnInit {
     itemDoc: AngularFirestoreDocument<any>;
     items = [];
     item = {};
+
+    // MODAL
+    @ViewChild('detailModal') public detailModal: ModalDirective;
 
     // FILTER
     filter = {};
@@ -120,6 +126,11 @@ export class SimpleTableListComponent implements OnInit {
                 // When closing the modal without no or yes
             }
         });
+    }
+
+    // MODAL
+    addModal() {
+        this.detailModal.show();
     }
 
     // SORTING

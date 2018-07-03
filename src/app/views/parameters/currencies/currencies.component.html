@@ -4,5 +4,6 @@
   </div>
   <div class="col-lg-4 col-md-4">
     <app-currencies-detail-form [item]="currentItem" [mode]="mode" (onChangeMode)="changeAction($event)"></app-currencies-detail-form>
+    <app-detail-form [mainService]="mainService" [itemForm]="itemForm" [modelname]="modelname" [item]="currentItem" [mode]="mode" (onChangeMode)="changeAction($event)"></app-detail-form>
   </div>
 </div>

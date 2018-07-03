@@ -1,6 +1,6 @@
 import { Component, Input, Output, EventEmitter, OnInit, OnChanges, SimpleChanges, SimpleChange } from '@angular/core';
 // FORMS
-import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormBuilder, AbstractControl } from '@angular/forms';
 
 // TRANSLATE
 import { TranslateService } from '@ngx-translate/core';
@@ -8,30 +8,29 @@ import 'rxjs/add/operator/map';
 
 @Component({
     selector: 'app-item-form',
-    template: '<div>itemForm</div>'
+    templateUrl: './item.form.component.html'
 })
 export class ItemFormComponent implements OnInit, OnChanges {
 
     @Input() item = {};
     @Input() mode = 'cancel';
 
-    itemForm: FormGroup;
+    @Input() modelname = '';
+    @Input() itemForm: FormGroup;
     @Output() onItemFormChange = new EventEmitter<FormGroup>();
+
+    listControl = [];
 
     constructor(public translate: TranslateService) {
         this.buildItemForm();
     }
 
     ngOnInit() {
-        console.log('Element from Form:', this.itemForm.controls);
-        this.onItemFormChange.emit(this.itemForm);
+
     }
 
     buildItemForm() {
-        this.itemForm = new FormGroup({
-            code: new FormControl({ value: '' }, Validators.required),
-            name: new FormControl({ value: '' }, Validators.required)
-        });
+        this.itemForm = new FormGroup({ code: new FormControl({ value: '' }, Validators.required) });
     }
 
     ngOnChanges(changes: SimpleChanges) {
@@ -50,6 +49,19 @@ export class ItemFormComponent implements OnInit, OnChanges {
             console.log('got name: ', item.currentValue);
             // this.item = item.currentValue;
             this.itemForm.setValue(this.updateForm(item.currentValue));
+        }
+
+        if (changes.itemForm) {
+            this.itemForm = changes.itemForm.currentValue;
+            console.log('##??## NEW ITEM FORM:', this.itemForm);
+            Object.keys(this.itemForm.controls).forEach(key => {
+                const data = {
+                    key: key
+                };
+                const ctrl: AbstractControl = this.itemForm.get(key);
+                this.listControl.push(data);
+            });
+            console.log(JSON.stringify(this.listControl));
         }
     }
 

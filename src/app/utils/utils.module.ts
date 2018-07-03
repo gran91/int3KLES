@@ -3,6 +3,12 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
+// Toaster
+import { ToasterModule, ToasterService } from 'angular2-toaster/angular2-toaster';
+
+// MODAL
+import { ModalModule } from 'ngx-bootstrap/modal';
+
 // TRANSLATE
 import { TranslateModule } from '@ngx-translate/core';
 
@@ -12,6 +18,7 @@ import { ConfirmDialogComponent } from './confirmation/confirm-dialog.component'
 // COMPONENT
 import { SimpleTableListComponent } from './components/simpletablelist.component';
 import { SimpleDetailComponent } from './components/simpledetail.component';
+import { DetailFormComponent } from './components/detail.form.component';
 import { ItemFormComponent } from './components/item.form.component';
 import { ValidationButtonComponent } from './components/validation.button';
 
@@ -34,7 +41,9 @@ import { CookieService, WindowService, CRUDService } from './service/index';
         FormsModule,
         ReactiveFormsModule,
         TranslateModule,
-        NgxPaginationModule
+        ToasterModule,
+        NgxPaginationModule,
+        ModalModule.forRoot()
     ],
     declarations: [
         AddressPipe,
@@ -46,6 +55,7 @@ import { CookieService, WindowService, CRUDService } from './service/index';
         SimpleDetailComponent,
         NavPaginationComponent,
         ItemFormComponent,
+        DetailFormComponent,
         ValidationButtonComponent
     ],
     exports: [
@@ -58,6 +68,7 @@ import { CookieService, WindowService, CRUDService } from './service/index';
         SimpleDetailComponent,
         NavPaginationComponent,
         ItemFormComponent,
+        DetailFormComponent,
         ValidationButtonComponent
 
     ],
@@ -66,6 +77,7 @@ import { CookieService, WindowService, CRUDService } from './service/index';
         SimpleTableListComponent,
         NavPaginationComponent,
         ItemFormComponent,
+        DetailFormComponent,
         ValidationButtonComponent
     ]
 })

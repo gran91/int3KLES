@@ -2,6 +2,7 @@ import { AfterViewInit, ViewChild, Input, Output, EventEmitter } from '@angular/
 import { Component } from '@angular/core';
 // FORMS
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
+import { ItemFormComponent } from '../../../../utils/components/item.form.component';
 import { CurrenciesFormComponent } from './currencies.form.component';
 import { ValidationButtonComponent } from '../../../../utils/components/validation.button';
 // TOASTER
@@ -17,8 +18,9 @@ import { CurrencyService } from '../../../../services/data/currency.service';
 })
 export class CurrenciesDetailFormComponent implements AfterViewInit {
 
-  @ViewChild(CurrenciesFormComponent)
-  private itemFormComponent: CurrenciesFormComponent;
+  @ViewChild(ItemFormComponent)
+  // private itemFormComponent: CurrenciesFormComponent;
+  private itemFormComponent: ItemFormComponent;
 
   @ViewChild(ValidationButtonComponent)
   private buttonFormComponent: ValidationButtonComponent;
@@ -26,6 +28,8 @@ export class CurrenciesDetailFormComponent implements AfterViewInit {
   @Input() mode = 'cancel';
   @Input() item;
   @Output() onChangeMode = new EventEmitter();
+
+  @Input() modelname = 'currencies';
 
   itemForm: FormGroup;
   public toasterconfig: ToasterConfig = new ToasterConfig({
@@ -35,6 +39,10 @@ export class CurrenciesDetailFormComponent implements AfterViewInit {
 
 
   constructor(public mainService: CurrencyService, public translate: TranslateService, public toaster: ToasterService) {
+    this.itemForm = new FormGroup({
+      code: new FormControl({ value: '' }, Validators.required),
+      name: new FormControl({ value: '' }, Validators.required)
+    });
   }
 
   ngAfterViewInit() {
