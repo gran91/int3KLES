@@ -19,9 +19,9 @@ export class SimpleTableListComponent implements OnInit {
     @Input() selectedRow = {};
     setClickedRow: Function;
     @Output() onSelectedRow = new EventEmitter();
-    @Output() onEdit = new EventEmitter();
-    @Output() onDelete = new EventEmitter();
-
+    @Output() onAction = new EventEmitter();
+    currentMode = 'add';
+    modifyclick = false;
     // FIREBASE
     itemDoc: AngularFirestoreDocument<any>;
     items = [];
@@ -53,13 +53,6 @@ export class SimpleTableListComponent implements OnInit {
         itemsPerPage: 5,
         currentPage: 1
     };
-    public paginationLabel: any = {
-        previousLabel: 'Previous',
-        nextLabel: 'Next',
-        screenReaderPaginationLabel: 'Pagination',
-        screenReaderPageLabel: 'page',
-        screenReaderCurrentLabel: `label`
-    };
 
     public toasterconfig: ToasterConfig = new ToasterConfig({
         tapToDismiss: true,
@@ -71,14 +64,19 @@ export class SimpleTableListComponent implements OnInit {
         public translate: TranslateService,
         public _bsModalService: BsModalService
     ) {
+        this.onAction.subscribe(action => this.currentMode = action);
         this.setClickedRow = function (index) {
+            if (!this.modifyclick) {
+                this.onAction.emit('display');
+            } else {
+                this.modifyclick = false;
+            }
             this.selectedRow = index;
             this.onSelectedRow.emit(this.selectedRow);
         }
     }
 
     ngOnInit() {
-        this.translatePaginationControl();
         this.mainService.list().subscribe(datas => {
             this.items = datas;
         });
@@ -96,15 +94,9 @@ export class SimpleTableListComponent implements OnInit {
         );
     }
 
-    add(item) {
-        this.mainService.add(item);
-        this.toasterService.pop('success', this.translate.instant('main.add'), this.translate.instant('message.add.success'));
-    }
-
     edit(item) {
-        this.onEdit.emit(true);
-        // this.mainService.update(item);
-        // this.toasterService.pop('success', this.translate.instant('main.update'), this.translate.instant('message.update.success'));
+        this.modifyclick = true;
+        this.onAction.emit('modify');
     }
 
     delete(item) {
@@ -118,36 +110,15 @@ export class SimpleTableListComponent implements OnInit {
             if (result === true) {
                 this.mainService.delete(item);
                 this.toasterService.pop('success', this.translate.instant('main.delete'), this.translate.instant('message.delete.success'));
-                this.onDelete.emit(true);
+                this.onAction.emit('delete');
             } else if (result === false) {
                 this.toasterService.pop('warning', this.translate.instant('main.delete'), this.translate.instant('message.delete.cancel'));
-                this.onDelete.emit(false);
+                this.onAction.emit('delete');
                 // this.onDelete.emit('cancel');
             } else {
-                this.onDelete.emit(false);
+                this.onAction.emit('delete');
                 // When closing the modal without no or yes
             }
-        });
-    }
-
-    enableEditing(item) {
-        this.isEditing = true;
-        this.item = item;
-    }
-
-    cancelEditing() {
-        this.isEditing = false;
-        this.item = {};
-        this.toasterService.pop('warning', 'Cancel', 'item editing cancelled.');
-    }
-
-    // PAGINATION
-    translatePaginationControl() {
-        this.translate.get(this.paginationLabel.previousLabel).subscribe((res: String) => {
-            this.paginationLabel.previousLabel = res;
-        });
-        this.translate.get(this.paginationLabel.nextLabel).subscribe((res: String) => {
-            this.paginationLabel.nextLabel = res;
         });
     }
 

@@ -16,9 +16,9 @@ export class NavPaginationComponent implements OnInit {
         currentPage: 1
     };
 
-    public maxSize = 7;
-    public directionLinks = true;
-    public autoHide = false;
+    @Input() maxSize = 7;
+    @Input() directionLinks = true;
+    @Input() autoHide = false;
 
     public paginationLabel: any = {
         previousLabel: 'Previous',
@@ -28,9 +28,12 @@ export class NavPaginationComponent implements OnInit {
         screenReaderCurrentLabel: `label`
     };
 
-    constructor(
-        public translate: TranslateService,
-    ) {
+    constructor(public translate: TranslateService, ) {
+        this.paginationLabel.previousLabel = this.translate.instant(this.paginationLabel.previousLabel);
+        this.paginationLabel.nextLabel = this.translate.instant(this.paginationLabel.nextLabel);
+        this.paginationLabel.screenReaderPaginationLabel = this.translate.instant(this.paginationLabel.screenReaderPaginationLabel);
+        this.paginationLabel.screenReaderPageLabel = this.translate.instant(this.paginationLabel.screenReaderPageLabel);
+        this.paginationLabel.screenReaderPageLabel = this.translate.instant(this.paginationLabel.screenReaderPageLabel);
     }
 
 

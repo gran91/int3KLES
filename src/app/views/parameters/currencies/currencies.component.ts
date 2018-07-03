@@ -17,13 +17,10 @@ export class CurrenciesComponent implements AfterViewInit {
   @ViewChild(CurrenciesDetailComponent)
   private itemDetail: CurrenciesDetailComponent;
 
-  isCreationMode = true;
-  isEditing = false;
-  isDelete = false;
   currentItem = {};
+  mode = 'cancel';
 
   constructor() {
-    this.isCreationMode = true;
   }
 
   ngAfterViewInit() {
@@ -31,24 +28,18 @@ export class CurrenciesComponent implements AfterViewInit {
 
   changeItem(event) {
     console.log('Change Item:', event);
-    if (event.code !== '') {
-      this.isCreationMode = false;
-    }
     this.currentItem = event;
   }
 
-  enableEdit(event) {
-    console.log('Enable Edit:', event);
-    this.isEditing = event;
+  changeAction(event) {
+    console.log('#########New mode for Currencies.comp:', event);
+    this.mode = event;
+    this.onChangeMode();
   }
 
-  enableDelete(event) {
-    console.log('Enable Delete:', event);
-    this.isDelete = event;
-  }
-
-  reset(event) {
-    this.isCreationMode = true;
-    this.itemList.unselect();
+  onChangeMode() {
+    if (this.mode === 'cancel') {
+      this.itemList.unselect();
+    }
   }
 }

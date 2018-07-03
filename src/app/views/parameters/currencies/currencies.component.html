@@ -1,8 +1,8 @@
 <div class="row">
   <div class="col-lg-8 col-md-8">
-    <app-currencies-list (onSelectedRow)="changeItem($event)" (onEdit)="enableEdit($event)" (onDelete)="enableDelete($event)"></app-currencies-list>
+    <app-currencies-list (onSelectedRow)="changeItem($event)" (onAction)="changeAction($event)"></app-currencies-list>
   </div>
   <div class="col-lg-4 col-md-4">
-    <app-currencies-detail [item]="currentItem" [isEditing]="isEditing"></app-currencies-detail>
+    <app-currencies-detail-form [item]="currentItem" [mode]="mode" (onChangeMode)="changeAction($event)"></app-currencies-detail-form>
   </div>
 </div>

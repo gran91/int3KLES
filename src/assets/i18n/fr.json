@@ -11,9 +11,22 @@
     },
     "message": {
         "delete": {
+            "title": "Suppression",
             "confirm": "Souhaitez vous supprimer cet enregistrement?",
-            "success": "Supprimer avec succès",
+            "success": "Supprimé avec succès",
             "cancel": "Suppression annuler"
+        },
+        "add": {
+            "title": "Ajout",
+            "confirm": "Souhaitez vous ajouter cet enregistrement?",
+            "success": "Ajouté avec succès",
+            "cancel": "Ajout annuler"
+        },
+        "update": {
+            "title": "Mise à jour",
+            "confirm": "Souhaitez vous mettre à jour cet enregistrement?",
+            "success": "Mise à jour avec succès",
+            "cancel": "Mise à jour annuler"
         }
     },
     "calendar": {
@@ -30,7 +43,11 @@
     "button": {
         "add": "Ajouter",
         "edit": "Modifier",
-        "delete": "Supprimer"
+        "modify": "Modifier",
+        "delete": "Supprimer",
+        "cancel": "Annuler",
+        "validate": "Validate",
+        "create": "Créer"
     },
     "countries": {
         "code": "Code",

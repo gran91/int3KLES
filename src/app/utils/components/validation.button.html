@@ -1,0 +1,8 @@
+<button type="button" class="btn btn-sm btn-primary" (click)="add()"  [disabled]="!formLink.valid" *ngIf="activeAdd" translate>
+    <i class="fa fa-dot-circle-o"></i> button.add</button>
+<button type="submit" class="btn btn-sm btn-primary" (click)="update()" [disabled]="!formLink.valid" *ngIf="activeValidate" translate>
+    <i class="fa fa-dot-circle-o"></i> button.validate</button>
+<button type="submit" class="btn btn-sm btn-warning" (click)="modify()" *ngIf="activeModify" translate>
+    <i class="fa fa-dot-circle-o"></i> button.modify</button>
+<button type="submit" class="btn btn-sm btn-danger" (click)="reset()" *ngIf="activeCancel" translate>
+    <i class="fa fa-ban"></i> button.cancel</button>

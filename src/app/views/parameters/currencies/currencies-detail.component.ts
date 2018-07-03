@@ -22,8 +22,8 @@ export class CurrenciesDetailComponent extends SimpleDetailComponent implements 
         public translate: TranslateService) {
         super(mainService, toaster, translate);
         this.itemForm = new FormGroup({
-            code: new FormControl({ value: '', disabled: !this.isEditing }, Validators.required),
-            name: new FormControl({ value: '', disabled: !this.isEditing }, Validators.required)
+            code: new FormControl({ value: '', disabled: this.isEditing }, Validators.required),
+            name: new FormControl({ value: '', disabled: this.isEditing }, Validators.required)
         });
     }
 

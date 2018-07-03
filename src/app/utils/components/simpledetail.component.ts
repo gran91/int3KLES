@@ -45,8 +45,13 @@ export class SimpleDetailComponent implements OnInit {
         this.item = {}
     }
 
-    update() {
-        this.itemService.update(this.itemForm.value);
+    update(item) {
+        console.log('Current item:', item);
+        const value = this.itemForm.value;
+        console.log('Value form:', value);
+        value['id'] = item.id;
+        console.log('Item to update:', value);
+        this.itemService.update(value);
         this.toaster.pop('success', 'Edit', 'item edited successfully.');
     }
 

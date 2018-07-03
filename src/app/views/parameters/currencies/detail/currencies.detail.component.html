@@ -1,0 +1,13 @@
+<div class="card h-100">
+    <div class="card-header">
+        <i class="fa fa-edit"></i>
+        <strong>Détail</strong>
+    </div>
+    <div class="card-body">
+        <app-currencies-form (onItemFormChange)="onItemFormChange($event)" [mode]="mode" [item]="item"></app-currencies-form>
+    </div>
+    <div class="card-footer text-center">
+        <app-validation-button (onAction)="onAction($event)" [formLink]="itemForm" [mode]="mode"></app-validation-button>
+    </div>
+</div>
+<toaster-container [toasterconfig]="toasterconfig"></toaster-container>

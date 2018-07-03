@@ -24,6 +24,10 @@ import { CurrenciesComponent } from './currencies/currencies.component';
 import { CurrenciesListComponent } from './currencies/currencies-list.component';
 import { CurrenciesDetailComponent } from './currencies/currencies-detail.component';
 
+// NEW
+import { CurrenciesDetailFormComponent } from './currencies/detail/currencies.detail.component';
+import { CurrenciesFormComponent } from './currencies/detail/currencies.form.component';
+
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 
 // Modal Component
@@ -64,6 +68,9 @@ import { ParametersRoutingModule } from './parameters-routing.module';
     CurrenciesComponent,
     CurrenciesListComponent,
     CurrenciesDetailComponent,
+    // NEW
+    CurrenciesFormComponent,
+    CurrenciesDetailFormComponent
   ]
 })
 export class ParametersModule { }

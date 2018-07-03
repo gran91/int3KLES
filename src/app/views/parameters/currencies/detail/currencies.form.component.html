@@ -1,0 +1,14 @@
+<form [formGroup]="itemForm" class="form-horizontal">
+    <div class="form-group row ">
+        <label class="col-md-3 col-form-label " for="code" translate>currencies.code</label>
+        <div class="col-md-9 ">
+            <input type="text " formControlName="code" id="code" name="code" class="form-control" value="{{item.code}}">
+        </div>
+    </div>
+    <div class="form-group row ">
+        <label class="col-md-3 col-form-label " for="name" translate>currencies.name</label>
+        <div class="col-md-9 ">
+            <input type="text " id="name" formControlName="name" name="name" class="form-control" placeholder="Nom" value="{{item.name}}">
+        </div>
+    </div>
+</form>
