@@ -15,11 +15,16 @@ import { TranslateModule } from '@ngx-translate/core';
 // CONFIRM
 import { ConfirmDialogComponent } from './confirmation/confirm-dialog.component';
 
+
+// Order Module
+import { Ng2OrderModule } from 'ng2-order-pipe';
+
 // COMPONENT
 import { SimpleTableListComponent } from './components/simpletablelist.component';
 import { SimpleDetailComponent } from './components/simpledetail.component';
 import { DetailFormComponent } from './components/detail.form.component';
 import { ItemFormComponent } from './components/item.form.component';
+import { ListComponent } from './components/list.component';
 import { ValidationButtonComponent } from './components/validation.button';
 
 // PAGINATION NAV
@@ -43,6 +48,7 @@ import { CookieService, WindowService, CRUDService } from './service/index';
         TranslateModule,
         ToasterModule,
         NgxPaginationModule,
+        Ng2OrderModule,
         ModalModule.forRoot()
     ],
     declarations: [
@@ -56,6 +62,7 @@ import { CookieService, WindowService, CRUDService } from './service/index';
         NavPaginationComponent,
         ItemFormComponent,
         DetailFormComponent,
+        ListComponent,
         ValidationButtonComponent
     ],
     exports: [
@@ -69,6 +76,7 @@ import { CookieService, WindowService, CRUDService } from './service/index';
         NavPaginationComponent,
         ItemFormComponent,
         DetailFormComponent,
+        ListComponent,
         ValidationButtonComponent
 
     ],
@@ -78,6 +86,7 @@ import { CookieService, WindowService, CRUDService } from './service/index';
         NavPaginationComponent,
         ItemFormComponent,
         DetailFormComponent,
+        ListComponent,
         ValidationButtonComponent
     ]
 })

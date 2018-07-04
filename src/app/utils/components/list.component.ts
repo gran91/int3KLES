@@ -1,6 +1,5 @@
-import { Component, OnInit, ChangeDetectionStrategy, EventEmitter, Input, Output, NgModule } from '@angular/core';
-import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
-import { ToasterModule, ToasterService, ToasterConfig } from 'angular2-toaster/angular2-toaster';
+import { Component, OnInit, ChangeDetectionStrategy, EventEmitter, Input, Output, OnChanges, SimpleChanges } from '@angular/core';
+import { ToasterService, ToasterConfig } from 'angular2-toaster/angular2-toaster';
 import { TranslateService } from '@ngx-translate/core';
 import { PaginationInstance } from 'ngx-pagination';
 import { Observable } from 'rxjs/Observable';
@@ -11,20 +10,28 @@ import { AngularFirestoreDocument } from 'angularfire2/firestore';
 // MODAL
 import { ViewChild } from '@angular/core';
 import { ModalDirective } from 'ngx-bootstrap/modal';
+import { IModel } from '../../models/IModel.model';
 
 @Component({
-    selector: 'app-simpletable-list',
-    template: '<div>SimpleTableList</div>',
+    selector: 'app-list',
+    templateUrl: './list.component.html',
     styleUrls: ['../../../scss/vendors/toastr/toastr.scss'],
     changeDetection: ChangeDetectionStrategy.Default
 })
-export class SimpleTableListComponent implements OnInit {
+
+export class ListComponent implements OnInit, OnChanges {
     @Input() selectedRow = {};
     setClickedRow: Function;
     @Output() onSelectedRow = new EventEmitter();
     @Output() onAction = new EventEmitter();
     currentMode = 'add';
     modifyclick = false;
+    @Input() model: IModel;
+    @Input() mainService: CRUDService;
+
+    listColumn: String[] = ['id'];
+
+
     // FIREBASE
     itemDoc: AngularFirestoreDocument<any>;
     items = [];
@@ -65,8 +72,7 @@ export class SimpleTableListComponent implements OnInit {
         timeout: 5000
     });
 
-    constructor(public mainService: CRUDService,
-        public toasterService: ToasterService,
+    constructor(public toasterService: ToasterService,
         public translate: TranslateService,
         public _bsModalService: BsModalService
     ) {
@@ -83,13 +89,33 @@ export class SimpleTableListComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.mainService.list().subscribe(datas => {
-            this.items = datas;
-        });
+    }
+
+    ngOnChanges(changes: SimpleChanges) {
+        console.log('################### LIST COMPONENT AllChanges:', changes);
+        if (changes.model) {
+            this.model = changes.model.currentValue;
+            this.listColumn = this.model.getListField();
+            /*Object.keys(this.model).forEach(key => {
+                console.log('##############KEY', key);
+                if (key !== 'id') {
+                    const col = { key: key };
+                    this.listColumn.push(col);
+                }
+            }
+            );*/
+        }
+
+        if (changes.mainService) {
+            this.mainService = changes.mainService.currentValue;
+            this.mainService.list().subscribe(datas => {
+                this.items = datas;
+            });
+        }
     }
 
     // CRUD
-    /*list() {
+    list() {
         this.mainService.list().subscribe(
             data => {
                 this.items = data;
@@ -98,7 +124,7 @@ export class SimpleTableListComponent implements OnInit {
             error => console.log(error),
             () => this.isLoading = false
         );
-    }*/
+    }
 
     edit(item) {
         this.modifyclick = true;

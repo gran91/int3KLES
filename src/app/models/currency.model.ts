@@ -1,15 +1,16 @@
 import { IModel } from './IModel.model';
 
-export class Country implements IModel {
+export class Currency implements IModel {
     id?: string;
     code: string;
     name: string;
+    symbol: string;
 
     getCollectionName(): String {
-        return 'country';
+        return 'currency';
     }
 
     getListField() {
-        return ['code', 'name'];
+        return ['code', 'name', 'symbol'];
     }
 }

@@ -1,6 +1,7 @@
 <div class="row">
   <div class="col-lg-8 col-md-8">
     <app-currencies-list (onSelectedRow)="changeItem($event)" (onAction)="changeAction($event)"></app-currencies-list>
+    <app-list [model]="model" [mainService]="mainService" (onSelectedRow)="changeItem($event)" (onAction)="changeAction($event)"></app-list>
   </div>
   <div class="col-lg-4 col-md-4">
     <app-currencies-detail-form [item]="currentItem" [mode]="mode" (onChangeMode)="changeAction($event)"></app-currencies-detail-form>
